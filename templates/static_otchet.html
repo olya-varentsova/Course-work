@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>static_otchet</title>
+    <style>
+   .c {
+    border: 1px solid #333; /* Рамка */
+    display: inline-block;
+    height: 20px;
+    padding: 10px 15px; /* Поля */
+    text-decoration: none; /* Убираем подчёркивание */
+    color: #000; /* Цвет текста */
+    font-family: "Times New Roman";
+    font-size: 16px;
+  }
+   .c:hover {
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Тень */
+    background: linear-gradient(to bottom, #fcfff4, #e9e9ce) !important; /* Градиент */
+    color: #a00;
+   }
+   .center {
+  margin: auto;
+  width: 500px;
+  text-align: center;
+    }
+        .center button{
+            height:40px;
+            font-family: "Times New Roman";
+            font-size: 16px;
+        }
+
+  </style>
+</head>
+<body>
+<h1 align="center">
+   Выполнить отчет сколько пациентов принял каждый врач, работающий в поликлинике за месяц.
+</h1>
+<div class="center">
+<form action="" method="post"  class="">
+    <p>
+        <div  class="c" style="width: 470px;" >
+            <label>Месяц </label>
+                <select name="month" class="form-control">
+                    <option value="1">Январь</option>
+                    <option value="2">Февраль</option>
+                    <option value="3">Март</option>
+                    <option value="4">Апрель</option>
+                    <option value="5">Май</option>
+                    <option value="6">Июнь</option>
+                    <option value="7">Июль</option>
+                    <option value="8">Август</option>
+                    <option value="9">Сентябрь</option>
+                    <option value="10">Октябрь</option>
+                    <option value="11">Ноябрь</option>
+                    <option value="12">Декабрь</option>
+                </select>
+        </div>
+    </p>
+    <p >
+        <div style="width: 470px;"class="c" >
+            <label>Год   </label>
+            <input type="number" min="2000" max="2100"  class="form-control" name="year">
+        </div>
+    </p>
+    <p >
+        <button type="submit" class="c" style="width: 500px;background: none;" >Выполнить запрос</button>
+    </p>
+    <p >
+        <a href="/" class="c" style="width: 470px;" >Вернуться на главную страницу</a>
+    </p>
+    </form>
+    </div>
+</body>
+</html>

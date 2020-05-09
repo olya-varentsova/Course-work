@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>query</title>
+         <style>
+   .c {
+    border: 1px solid #333; /* Рамка */
+    display: inline-block;
+    padding: 5px 15px; /* Поля */
+    text-decoration: none; /* Убираем подчёркивание */
+    color: #000; /* Цвет текста */
+  }
+   .c:hover {
+    box-shadow: 0 0 5px rgba(0,0,0,0.3); /* Тень */
+    background: linear-gradient(to bottom, #fcfff4, #e9e9ce); /* Градиент */
+    color: #a00;
+   }
+  </style>
+      <style>
+   table {
+    width: 100%; /* Ширина таблицы */
+    border-collapse: collapse; /* Убираем двойные линии */
+   }
+   thead {
+    background: #f5e8d0; /* Цвет фона заголовка */
+   }
+   td, th {
+    padding: 5px; /* Поля в ячейках */
+    border: 1px solid #333; /* Параметры рамки */
+   }
+   tbody tr:nth-child(even) {
+    background: #f0f0f0; /* Зебра */
+   }
+  </style>
+</head>
+<body>
+<h1 align="center">
+    {{ title }}
+</h1>
+    {% if result==None %}
+        <h3> Нет данных за этот период</h3>
+    {% else %}
+        <table align="center" class="">
+            <thead align="center" class="thead-dark">
+                <tr>
+                    {% for col in metadata %}
+                        <th scope="col">{{ col }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in result %}
+                    <tr>
+                        {% for val in row %}
+                            <th scope="col">{{ val  }}</th>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endif %}
+<p>
+<a href="/" class="c">Вернуться на главную страницу</a>
+</p>
+</body>
+</html>
