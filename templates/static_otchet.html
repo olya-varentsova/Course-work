@@ -38,31 +38,21 @@
 </h1>
 <div class="center">
 <form action="" method="post"  class="">
+    {%   if ids==1 or ids==6 %}
     <p>
         <div  class="c" style="width: 470px;" >
-            <label>Месяц </label>
-                <select name="month" class="form-control">
-                    <option value="1">Январь</option>
-                    <option value="2">Февраль</option>
-                    <option value="3">Март</option>
-                    <option value="4">Апрель</option>
-                    <option value="5">Май</option>
-                    <option value="6">Июнь</option>
-                    <option value="7">Июль</option>
-                    <option value="8">Август</option>
-                    <option value="9">Сентябрь</option>
-                    <option value="10">Октябрь</option>
-                    <option value="11">Ноябрь</option>
-                    <option value="12">Декабрь</option>
-                </select>
+            <label>Выберите месяц и год </label>
+                <input type='month' name="month" value="2001-03"/><br /><br />
         </div>
     </p>
-    <p >
-        <div style="width: 470px;"class="c" >
-            <label>Год   </label>
-            <input type="number" min="2000" max="2100"  class="form-control" name="year">
+    {% elif ids==0 %}
+    <p>
+        <div  class="c" style="width: 470px;" >
+            <label>Выберите день, месяц и год </label>
+               <input type='date' name="date" value="2001-09-04"/>
         </div>
     </p>
+    {% endif %}
     <p >
         <button type="submit" class="c" style="width: 500px;background: none;" >Выполнить запрос</button>
     </p>

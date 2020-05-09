@@ -15,15 +15,16 @@ queries = [
         SELECT
           doctor.Name,
           timetable.Cabinet_number,
-          COUNT(*),
+          COUNT(*) as Count_of_recoders,
           COUNT(CASE
             WHEN timetable.Tunout_mark="1" THEN 1
             ELSE NULL
-        END)
+        END) as Count_of_visitors
         FROM doctor
         INNER JOIN clinic.timetable
           ON doctor.id_Doc = timetable.id_Doctor
-        WHERE YEAR(timetable.Date_of_visit) = {} AND MONTH(timetable.Date_of_visit) = {} AND DAY(timetable.Date_of_visit) = {};
+        WHERE YEAR(timetable.Date_of_visit) = {} AND MONTH(timetable.Date_of_visit) = {} AND DAY(timetable.Date_of_visit) = {}
+        HAVING Count_of_recoders>0;
     ''',
     '''
         SELECT
@@ -94,20 +95,23 @@ def index_page():
 def queryy(id):
     if id == 1 or id == 0:
         if request.method == 'POST':
-            month = request.form['month']
-            year = request.form['year']
-            cursor.execute(str.format(queries[id], month,year))
+            if id == 1:
+                year, month = request.form['month'].split('-')
+                cursor.execute(str.format(queries[id], month,year))
+            if id == 0:
+                year, month, day = request.form['date'].split('-')
+                cursor.execute(str.format(queries[id], year, month, day))
             res = []
             for x in cursor:
                 res.append(x)
-            if len(res) == 0:
+            if len(res) == 0 or (id == 0 and res[0][2] == 0):
                 res = None
             return render_template('query.html',
                                    title=titles[id],
                                    result=res,
                                    metadata=cursor.column_names)
         else:
-            return render_template('static_otchet.html')
+            return render_template('static_otchet.html', ids=id)
     else:
         cursor.execute(queries[id])
         res = []
@@ -124,9 +128,8 @@ def queryy(id):
 @app.route('/static_otchet',methods=['GET','POST'])
 def query6_page():
     if request.method == 'POST':
-        month = request.form['month']
-        year = request.form['year']
-        cursor.callproc('Update_report',(year,month))
+        year, month = request.form['month'].split('-')
+        cursor.callproc('Update_report', (int(year), int(month)))
         cursor.execute(queries[6])
         res = []
         for x in cursor:
@@ -138,7 +141,8 @@ def query6_page():
                                result=res,
                                metadata=cursor.column_names)
     else:
-        return render_template('static_otchet.html')
+        return render_template('static_otchet.html',
+                               ids=6)
 
 
 if __name__ == '__main__':
