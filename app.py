@@ -70,8 +70,11 @@ queries = [
         WHERE visit.Date_vis = "2000-09-04" AND visit.Doctor_name = doctor.Name );
     ''',
     '''
-    SELECT * FROM clinic.report;
-    ''']
+    SELECT * FROM clinic.reports
+    WHERE  `Year` = {} AND `Month`={};
+    ''',
+    '''SELECT * FROM clinic.reports'''
+    ]
 titles = [
     '''Отчет на дату 2001-09-04 по форме: Фамилия врача, номер кабинета, количество записавшихся пациентов, количество пациентов, явившихся на прием.
     ''',
@@ -81,7 +84,8 @@ titles = [
     '''Информация о том, сколько в среднем пациентов в день посещает поликлинику в каждом месяце.''',
     '''Фамилии врачей, которые не сделали ни одной записи в карточках пациентов.''',
     ''' Фамилии врачей, которые не вели приема в дату 2000-09-04.''',
-    '''   Выполнить отчет сколько пациентов принял каждый врач, работающий в поликлинике за месяц.''']
+    '''   Выполнить отчет сколько пациентов принял каждый врач, работающий в поликлинике за месяц.''',
+    '''Существующие отчеты.''']
 
 cursor = mydb.cursor()
 
@@ -130,7 +134,7 @@ def query6_page():
     if request.method == 'POST':
         year, month = request.form['month'].split('-')
         cursor.callproc('Update_report', (int(year), int(month)))
-        cursor.execute(queries[6])
+        cursor.execute(str.format(queries[6], year, month))
         res = []
         for x in cursor:
             res.append(x)
